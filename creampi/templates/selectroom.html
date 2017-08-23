@@ -1,0 +1,43 @@
+<div class="modal fade" id="selectRm" tabindex="-1" role="dialog"
+     aria-labelledby="selectRmLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="panel-body">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">&times;
+                    </button>
+                    <h4 class="modal-title" id="selectRmLabel">Select Rooms</h4>
+                </div>
+                <p></p>
+
+                <div class="form-group">
+                    <label>Select Multiple Room</label>
+                    <select name="rooms" class="form-control select2" multiple="multiple" data-placeholder="Select a Room"
+                            style="width: 100%;">
+                        {% for row in data %}
+                        	<option value="{{ row }}">{{ row }}</option>
+			{% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button"
+                        class="btn btn-default"
+                        data-dismiss="modal">
+                    Close
+                </button>
+                <button type="submit"
+                        class="btn btn-primary">Submit
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+
+<script>
+    $('.select2').select2()
+</script>

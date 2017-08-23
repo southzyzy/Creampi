@@ -1,0 +1,35 @@
+{% include 'base.html' %}
+
+<div class="wrapper">
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1 class="page-header"><i class="fa fa-desktop fa-fw"></i> Control</h1>
+            <div class="breadcrumb">
+                <li><a href="{{ url_for('index') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+                <li class="active">Control</li>
+            </div>
+        </section>
+
+        <!-- Main content -->
+        <section class="content container-fluid">
+            <div class="container">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <span class="glyphicon glyphicon-send" aria-hidden="true"></span><b> LCD Screen Display</b>
+                    </div>
+                    <!-- /.panel-heading -->
+                    <form action="{{ url_for('submit') }}" method="POST">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label for="comment">Input your Message:</label>
+                                <textarea class="form-control" rows="3" id="message" name="message"></textarea><br>
+                                <button type="submit" class="btn btn-primary btn-md">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

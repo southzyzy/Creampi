@@ -1,0 +1,408 @@
+{% include 'base.html' %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+
+<div class="wrapper">
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1 class="page-header"><i class="fa fa-dashboard fa-fw"></i> Dashboard</h1>
+            <div class="breadcrumb">
+                <li class="active"><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            </div>
+        </section>
+
+        <!-- Main content -->
+        <section class="content container-fluid">
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-yellow">
+                        <span class="info-box-icon"><i class="fa fa-lightbulb-o"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Room Light</span>
+                            <span class="info-box-number">
+                                <div class="rmLight">
+                                    <div class="loading" style="text-align: center;">
+                                        <i class="fa fa-refresh fa-spin"></i>
+                                        Loading
+                                    </div>
+                                </div>
+                            </span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-aqua">
+                        <span class="info-box-icon"><i class="fa fa-cloud"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Room Humidity</span>
+                            <span class="info-box-number">
+                                <div class="rmHum">
+                                    <div class="loading" style="text-align: center;">
+                                        <i class="fa fa-refresh fa-spin"></i>
+                                        Loading
+                                    </div>
+                                </div>
+                            </span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-red">
+                        <span class="info-box-icon"><i class="fa fa-thermometer-half"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Room Temperature</span>
+                            <span class="info-box-number">
+                                <div class="rmTemp">
+                                    <div class="loading" style="text-align: center;">
+                                        <i class="fa fa-refresh fa-spin"></i>
+                                        Loading
+                                    </div>
+                                </div>
+                            </span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label>Select Room</label>
+                        <select id="selectOneRoom" class="form-control">
+                            <option></option>
+                            {% for row in data %}
+                                <option>{{ row }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-red"><i class="fa fa-thermometer-half"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Pi Temperature</span>
+                            <span class="info-box-number">
+                                <div class="huge temp">
+                                    <div class="loading" style="text-align: center;">
+                                            <i class="fa fa-refresh fa-spin"></i>
+                                            Loading
+                                    </div>
+                                </div>
+                            </span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-aqua"><i class="fa fa-signal"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Arm Usage</span>
+                            <span class="info-box-number">
+                                    <div class="huge armUsage">
+                                        <div class="loading" style="text-align: center;">
+                                            <i class="fa fa-refresh fa-spin"></i>
+                                            Loading
+                                        </div>
+                                    </div>
+                            </span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-blue"><i class="fa fa-signal"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">GPU Usuage</span>
+                            <span class="info-box-number">
+                                    <div class="huge gpuUsage">
+                                        <div class="loading" style="text-align: center;">
+                                            <i class="fa fa-refresh fa-spin"></i>
+                                            Loading
+                                        </div>
+                                    </div>
+                            </span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <label>Select Multiple Room</label>
+                    <p>
+                        <button class="btn btn-primary" data-toggle="modal"
+                                data-target="#selectRm"><span class="fa fa-plus"> Select Multiple Rooms</span>
+                        </button>
+                    </p>
+                    <form action="{{ url_for('multipleRoom') }}" method="post">
+                        {% include 'selectroom.html' %}
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <!-- LINE CHART -->
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Light Line Chart</h3>
+
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                    class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i
+                                    class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="chart">
+                            <div class="pull-right">
+                                <select id="light_dropdown_line">
+                                    <option value=""></option>
+                                    {% for row in data %}
+                                        <option value="{{ row }}">{{ row }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="panel-body">
+                                Please select from the drop down list.
+                                <canvas id="LightLineChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+
+            <div class="col-md-6">
+                <!-- LINE CHART -->
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Temperature Line Chart</h3>
+
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                    class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i
+                                    class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="chart">
+                            <div class="pull-right">
+                                <select id="temp_dropdown_line">
+                                    <option value=""></option>
+                                    {% for row in data %}
+                                        <option value="{{ row }}">{{ row }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="panel-body">
+                                Please select from the drop down list.
+                                <canvas id="TempLineChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+
+            <div class="col-md-6">
+                <!-- LINE CHART -->
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Humidity Line Chart</h3>
+
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                    class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i
+                                    class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="chart">
+                            <div class="pull-right">
+                                <select id="hum_dropdown_line">
+                                    <option value=""></option>
+                                    {% for row in data %}
+                                        <option value="{{ row }}">{{ row }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="panel-body">
+                                Please select from the drop down list.
+                                <canvas id="HumLineChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+
+        </section>
+        <!-- /.content -->
+    </div>
+</div>
+<script>
+    function selectRoom(roomNo) {
+        $.ajax({
+            url: "/selectRoom/" + roomNo,
+            data: {"name": roomNo},
+            success: function (result) {
+                $(".temp").html(result['pi_temp'] + "°C");
+                $(".armUsage").html(result['pi_arm']);
+                $(".gpuUsage").html(result['pi_gpu']);
+                $(".rmLight").html(result['rmLight']);
+                $(".rmHum").html(result['rmHum']);
+                $(".rmTemp").html(result['rmTemp'] + "°C");
+            }
+        })
+    }
+
+    $(document).ready(function () {
+        $("#selectOneRoom").on("change", function () {
+            var roomNo = $('#selectOneRoom').val();
+            var loading = '<div class="loading" style="text-align: center;">\n' +
+                '<i class="fa fa-refresh fa-spin"></i>\n' +
+                'Loading\n' +
+                '</div>';
+            $(".temp").html(loading);
+            $(".armUsage").html(loading);
+            $(".gpuUsage").html(loading);
+            $(".rmLight").html(loading);
+            $(".rmHum").html(loading);
+            $(".rmTemp").html(loading);
+            selectRoom(roomNo);
+        });
+    });
+
+    var ctx = document.getElementById("LightLineChart");
+    var ctx1 = document.getElementById("TempLineChart");
+    var ctx2 = document.getElementById("HumLineChart");
+
+    $(document).ready(function () {
+        $("#light_dropdown_line").on("change", function () {
+            var selectedValue = $('#light_dropdown_line').val();
+            $.ajax({
+                url: "/lightLineChart/" + selectedValue,
+                type: "GET",
+                data: {"name": selectedValue},
+                dataType: "json",
+                success: function (result) {
+                    var LightLineChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'],
+                            datasets: [{
+                                label: 'Luminosity over Time for ' + selectedValue,
+                                data: result,
+                                backgroundColor: "rgba(0,0,0,0)",
+                                borderColor: "rgba(255,0,255,1)",
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            elements: {
+                                line: {
+                                    tension: 0, // disables bezier curves
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+        });
+
+        $("#temp_dropdown_line").on("change", function () {
+            var selectedValue = $('#temp_dropdown_line').val();
+            $.ajax({
+                url: "/tempLineChart/" + selectedValue,
+                type: "GET",
+                data: {"name": selectedValue},
+                dataType: "json",
+                success: function (result) {
+                    var TempLineChart = new Chart(ctx1, {
+                        type: 'line',
+                        data: {
+                            labels: ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'],
+                            datasets: [{
+                                label: 'Temperature over Time for ' + selectedValue,
+                                data: result,
+                                backgroundColor: "rgba(0,0,0,0)",
+                                borderColor: "rgba(255, 0, 0, 1)",
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            elements: {
+                                line: {
+                                    tension: 0, // disables bezier curves
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+        });
+
+        $("#hum_dropdown_line").on("change", function () {
+            var selectedValue = $('#hum_dropdown_line').val();
+            $.ajax({
+                url: "/humLineChart/" + selectedValue,
+                type: "GET",
+                data: {"name": selectedValue},
+                dataType: "json",
+                success: function (result) {
+                    var HumLineChart = new Chart(ctx2, {
+                        type: 'line',
+                        data: {
+                            labels: ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'],
+                            datasets: [{
+                                label: 'Humidity over Time for ' + selectedValue,
+                                data: result,
+                                backgroundColor: "rgba(0,0,0,0)",
+                                borderColor: "rgba(0,0,255,1)",
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            elements: {
+                                line: {
+                                    tension: 0, // disables bezier curves
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>

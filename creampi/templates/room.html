@@ -1,0 +1,69 @@
+{% include 'base.html' %}
+<link rel="stylesheet" href="/static/tables/css/bootstrap-table.css">
+<script src="/static/tables/js/bootstrap-table.js"></script>
+<script src="/static/tables/js/bootstrap-table-export.js"></script>
+<script src="http://rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js"></script>
+
+<div class="wrapper">
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1 class="page-header"><i class="fa fa-hospital-o fa-fw"></i> Multiple Rooms</h1>
+
+            <div class="breadcrumb">
+                <li><a href="{{ url_for('index') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+                <li class="active">Multiple Rooms</li>
+            </div>
+        </section>
+
+        <!-- Main content -->
+        <section class="content container-fluid">
+            <div class="container">
+                <div class="box">
+                    <div class="box-header">
+                        <h2 class="page-header">Multiple Rooms</h2>
+                    </div>
+                    <div class="box-body">
+                        <table id="table" class="table table-hover" data-show-columns="true" data-search="true"
+                               data-page-number="true" data-pagination="true" data-reorderable-rows="true"
+                               data-show-export="true"
+                               data-toggle="table">
+                            <thead>
+                            <tr>
+                                <th data-sortable="true">Rooms</th>
+                                <th>Pi Temperature</th>
+                                <th>Pi Arm Usage</th>
+                                <th>Pi GPU Usage</th>
+                                <th>Room Temperature</th>
+                                <th>Room Light Value</th>
+                                <th>Room Humidity Level</th>
+                                <th>Time Stamp</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for key, value in multipleRoom.items() %}
+                                <tr>
+                                    <td>{{ key }}</td>
+                                    <td>{{ value['Pi_Temp'] }}</td>
+                                    <td>{{ value['ARM_Status'] }}</td>
+                                    <td>{{ value['GPU_Status'] }}</td>
+                                    <td>{{ value['Temperature'] }}</td>
+                                    <td>{{ value['Light'] }}</td>
+                                    <td>{{ value['Humidity'] }}</td>
+                                    <td>{{ value['Timestamp'] }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+    {#    {% include 'ostiarius/footer.html' %}#}
+</div>
+
+<script>
+    $('table').bootstrapTable();
+</script>
