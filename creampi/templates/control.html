@@ -1,101 +1,128 @@
 {% include 'base.html' %}
 <div class="wrapper">
-   <div class="content-wrapper">
-      <!-- Content Header (Page header) -->
-      <section class="content-header">
-         <h1 class="page-header"><i class="fa fa-desktop fa-fw"></i> Control</h1>
-         <div class="breadcrumb">
-            <li><a href="{{ url_for('index') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-            <li class="active">Control</li>
-         </div>
-      </section>
-      <!-- Main content -->
-      <section class="content container-fluid">
-         <div class="container">
-            <div class="panel panel-default">
-               <div class="panel-heading">
-                  <span class="glyphicon glyphicon-send" aria-hidden="true"></span><b> Amazon Polly – Text to Speech</b>
-               </div>
-               <form action="{{ url_for('submit') }}" method="POST">
-                  <div class="panel-body">
-                     <div class="form-group col-xs-6">
-                        <label for="comment">Choose Your Voice!</label>
-                        <select id="voicename" name="voicename" class="form-control">
-                           <optgroup label="English - Female">
-                              <option>Joanna</option>
-                              <option>Amy</option>
-                              <option>Emma</option>
-                              <option>Raveena</option>
-                              <option>Nicole</option>
-                              <option>Kimberly</option>
-                              <option>Kendra</option>
-                              <option>Ivy</option>
-                              <option>Salli</option>
-                           <optgroup label="English - Male">
-                              <option>Russell</option>
-                              <option>Brian</option>
-                              <option>Geraint</option>
-                              <option>Justin</option>
-                              <option>Joey</option>
-                           </optgroup>
-                           <optgroup label="French - Female">
-                              <option>Celine</option>
-                           </optgroup>
-                           <optgroup label="French - Male">
-                              <option>Mathieu</option>
-                           </optgroup>
-                           <optgroup label="Japanese - Female">
-                              <option>Mizuki</option>
-                           </optgroup>
-                           <optgroup label="Italian - Female">
-                              <option>Carla</option>
-                           </optgroup>
-                           <optgroup label="Italian - Male">
-                              <option>Giorgio</option>
-                           </optgroup>
-                           <optgroup label="Russian - Female">
-                              <option>Tatyana</option>
-                           </optgroup>
-                           <optgroup label="Russian - Male">
-                              <option>Maxim</option>
-                           </optgroup>
-                           <optgroup label="German - Female">
-                              <option>Marlene</option>
-                              <option>Vicki</option>
-                           </optgroup>
-                           <optgroup label="German - Male">
-                              <option>Hans</option>
-                           </optgroup>
-                           </optgroup>
-                        </select>
-                     </div>
-                     <div class="form-group col-xs-6">
-                        <label for="comment">Select your Message:</label>
-                        <select id="selectMessage" class="form-control">
-                           <option></option>
-                           <option>I will be there soon</option>
-                           <option>Who are you</option>
-                           <option>Coming down soon</option>
-                        </select>
-                     </div>
-                     <div class="form-group col-xs-12">
-                        <label for="comment">Input your Message:</label>
-                        <input type="text" class="form-control" id="message" name="message">
-                        <br />
-                        <button type="submit" class="btn btn-primary btn-md">Submit</button>
-                     </div>
-                  </div>
-               </form>
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1 class="page-header"><i class="fa fa-desktop fa-fw"></i> Control</h1>
+            <div class="breadcrumb">
+                <li><a href="{{ url_for('index') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+                <li class="active">Control</li>
             </div>
-         </div>
-      </section>
-   </div>
+        </section>
+        <!-- Main content -->
+        <section class="content container-fluid">
+            <div class="container">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <span class="glyphicon glyphicon-send" aria-hidden="true"></span><b> Amazon Polly – Text to
+                        Speech</b>
+                    </div>
+                    <form action="{{ url_for('awspolly') }}" method="POST">
+                        <div class="panel-body">
+                            <div class="form-group col-xs-6">
+                                <label for="comment">Choose Your Voice!</label>
+                                <select id="voicename" name="voicename" class="form-control">
+                                    <optgroup label="English - Female">
+                                        <option>Joanna</option>
+                                        <option>Amy</option>
+                                        <option>Emma</option>
+                                        <option>Raveena</option>
+                                        <option>Nicole</option>
+                                        <option>Kimberly</option>
+                                        <option>Kendra</option>
+                                        <option>Ivy</option>
+                                        <option>Salli</option>
+                                        <optgroup label="English - Male">
+                                            <option>Russell</option>
+                                            <option>Brian</option>
+                                            <option>Geraint</option>
+                                            <option>Justin</option>
+                                            <option>Joey</option>
+                                        </optgroup>
+                                        <optgroup label="French - Female">
+                                            <option>Celine</option>
+                                        </optgroup>
+                                        <optgroup label="French - Male">
+                                            <option>Mathieu</option>
+                                        </optgroup>
+                                        <optgroup label="Japanese - Female">
+                                            <option>Mizuki</option>
+                                        </optgroup>
+                                        <optgroup label="Italian - Female">
+                                            <option>Carla</option>
+                                        </optgroup>
+                                        <optgroup label="Italian - Male">
+                                            <option>Giorgio</option>
+                                        </optgroup>
+                                        <optgroup label="Russian - Female">
+                                            <option>Tatyana</option>
+                                        </optgroup>
+                                        <optgroup label="Russian - Male">
+                                            <option>Maxim</option>
+                                        </optgroup>
+                                        <optgroup label="German - Female">
+                                            <option>Marlene</option>
+                                            <option>Vicki</option>
+                                        </optgroup>
+                                        <optgroup label="German - Male">
+                                            <option>Hans</option>
+                                        </optgroup>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <div class="form-group col-xs-6">
+                                <label for="comment">Select your Message:</label>
+                                <select id="selectMessage" class="form-control">
+                                    <option></option>
+                                    <option>I will be there soon</option>
+                                    <option>Who are you</option>
+                                    <option>Coming down soon</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-xs-12">
+                                <label for="comment">Input your Message:</label>
+                                <input type="text" class="form-control" id="message" name="message">
+                                <br/>
+                                <button type="submit" class="btn btn-primary btn-md">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <div class="container">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-send" aria-hidden="true"></span><b> Set Your Light Threshold!</b>
+                </div>
+                <form action="{{ url_for('threshold') }}" method="POST">
+                    <div class="panel-body">
+                        <div class="form-group col-xs-3">
+                            <label for="comment">Input Light Threshold Limit:</label>
+                            <input class="form-control" id="threshold" name="threshold" placeholder="E.g. 452"
+                                   type="number"><br>
+                            <button type="submit" class="btn btn-primary btn-md">Submit</button>
+                        </div>
+                        <div class="form-group col-xs-3">
+                            <label for="comment">Select Your Room!</label>
+                            <select id="room" name="room" class="form-control">
+                                <option></option>
+                                {% for row in data %}
+                                <option>{{ row }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 <script>
-   $(document).ready(function () {
-       $("#selectMessage").on("change", function () {
-           var selectedValue = $('#selectMessage').val();
-    document.getElementById('message').value=selectedValue;
-       });
-   });
+    $(document).ready(function () {
+        $("#selectMessage").on("change", function () {
+            var selectedValue = $('#selectMessage').val();
+            document.getElementById('message').value = selectedValue;
+        });
+    });
 </script>

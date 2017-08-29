@@ -7,11 +7,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>CreamPi</title>
+    <title>SIS</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
     <link rel="icon" type="image/png" href="/static/img/favicon-32x32.png" sizes="32x32" />
+    
     <link rel="stylesheet" href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="/static/bower_components/font-awesome/css/font-awesome.min.css">
@@ -66,10 +67,9 @@ desired effect
     <!-- Logo -->
     <a href="{{ url_for('index') }}" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><img src="http://imgur.com/aqb5pTS.png" style="width: 50px; height: 50px"></span>
+        <span class="logo-mini"><img src="http://imgur.com/5eS97Kq.png" style="width: 60px; height: 60px"></span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b><img src="http://imgur.com/aqb5pTS.png"
-                                      style="width: 50px; height: 50px"> CreamPi</b></span>
+        <span class="logo-lg"><b>SIS</b></span>
     </a>
 
     <!-- Header Navbar -->
@@ -78,6 +78,38 @@ desired effect
         <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
             <span class="sr-only">Toggle navigation</span>
         </a>
+
+	<div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+                <!-- User Account Menu -->
+                <li class="dropdown user user-menu">
+                    <!-- Menu Toggle Button -->
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                        <span class="hidden-xs">admin</span>
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <!-- The user image in the menu -->
+                        <li class="user-header">
+                            <img src="http://imgur.com/0R96hfs.png" class="img-circle" alt="User Image">
+                            <p>
+                                admin
+                            </p>
+                        </li>
+                        <!-- Menu Body -->
+                        <!-- Menu Footer-->
+                        <li class="user-footer">
+                            <div class="pull-right">
+                                <a href="/logout"
+                                   class="btn btn-default btn-flat">Logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Control Sidebar Toggle Button -->
+            </ul>
+        </div>
     </nav>
 </header>
 <!-- Left side column. contains the logo and sidebar -->

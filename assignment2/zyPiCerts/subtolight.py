@@ -56,11 +56,26 @@ def customCallback(client, userdata, message):
   
   roomNumber = re.search('room\/([^\/]*).+', message.topic)
   #print roomNumber.group(1)
+
+  # room1 = '0000000073e32a48'
+  # room2 = '000000003d7762f1'
   
-  if (int(float(message.payload)) < 100.0):
-    instructionsforroom(roomNumber.group(1),'on')
-  else:
-    instructionsforroom(roomNumber.group(1),'off')
+  f = open("lightThreshold.txt","r")
+  data = f.readlines()
+  for i in data:
+    fileLine = re.search('([^\-]*)-(.+)', i)
+    piSN = fileLine.group(1)
+    lightThreshold = fileLine.group(2)
+    if piSN == '0000000073e32a48':
+      if (int(float(message.payload)) < lightThreshold):
+        instructionsforroom(roomNumber.group(1),'on')
+      else:
+        instructionsforroom(roomNumber.group(1),'off') 
+    if piSN == '000000003d7762f1':
+      if (int(float(message.payload)) < lightThreshold):
+        instructionsforroom(roomNumber.group(1),'on')
+      else:
+        instructionsforroom(roomNumber.group(1),'off')     
   
 while True:
   try:
