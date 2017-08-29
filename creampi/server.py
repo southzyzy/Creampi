@@ -9,13 +9,13 @@ from boto import dynamodb2
 from boto.dynamodb2.table import Table
 from boto.dynamodb2.fields import HashKey, RangeKey, KeysOnlyIndex, GlobalAllIndex
 
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, redirect
 
 lcd = LCD()
 
 # ==================== Connection to Dynaomo db ===================== #  
-AWS_ACCESS_KEY_ID = '<aws_access_key>'
-AWS_SECRET_ACCESS_KEY = '<aws_secret_key>'
+AWS_ACCESS_KEY_ID = '<your_aws_access_key>'
+AWS_SECRET_ACCESS_KEY = '<your_aws_secret_key>'
 REGION = 'us-west-2'
 TABLE_NAME = 'Pilogs'
 
@@ -74,11 +74,14 @@ def getData(column):
 
 # ==================== Controlling of LCD and output Sound ============================= #
 
-def polly(message):
+def polly(message, voicename):
     # connect the polly to be communicating with AWS
-    polly = boto3.client('polly', region_name='us-west-2', aws_access_key_id='<your_own_aws_access_key>',aws_secret_access_key='<your_secret_key>')
+    polly = boto3.client('polly', region_name='us-west-2', aws_access_key_id='<your_aws_access_key>',aws_secret_access_key='<your_aws_secret_key>')
     # specify the voice and output the voice text
-    spoken_text = polly.synthesize_speech(Text=message, OutputFormat='mp3', VoiceId='Russell')
+    if message == '':
+        message = "Hello! My name is " + voicename + '.......'
+    spoken_text = polly.synthesize_speech(Text=message, OutputFormat='mp3', VoiceId=voicename)
+
     lcd.text(message,1)
 
     #write the audio file, and open for playing the mp3
@@ -119,8 +122,9 @@ def control():
 def submit():
     if request.method == 'POST':
         message = request.form['message'] # get the message from the template control.html
-        polly(message)# pass the message to the prolly function, where it will output the text message in voice
-    return render_template('control.html')
+        voicename = request.form['voicename']
+        polly(message, voicename)# pass the message to the prolly function, where it will output the text message in voice
+    return redirect('control')
 
 
 @app.route('/camera')
