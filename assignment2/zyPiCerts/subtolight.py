@@ -8,10 +8,10 @@ import subprocess
 def instructionsforroom(roomNumber,send):
   try:
     #========= need to change this portion ===========
-    host = "avvcljufnth68.iot.us-west-2.amazonaws.com"
-    rootCAPath = "zy_rootca.pem"
-    certificatePath = "zy_certificate.pem.crt"
-    privateKeyPath = "zy_private.pem.key"
+    host = "<your_aws_host_address>"
+    rootCAPath = "<your_root_ca_path>"
+    certificatePath = "<your_certificate_path>"
+    privateKeyPath = "<your_private_key_path>"
     #=================================================
 
     my_rpi = AWSIoTMQTTClient("DecisionMaker")
@@ -63,26 +63,27 @@ def customCallback(client, userdata, message):
   f = open("lightThreshold.txt","r")
   data = f.readlines()
   for i in data:
-    fileLine = re.search('([^\-]*)-(.+)', i)
+    fileLine = re.search('([^\-]*)\s(.+)', i)
     piSN = fileLine.group(1)
     lightThreshold = fileLine.group(2)
+    
     if piSN == '0000000073e32a48':
-      if (int(float(message.payload)) < lightThreshold):
+      if (int(float(message.payload)) < int(float(lightThreshold))):
         instructionsforroom(roomNumber.group(1),'on')
-      else:
+      elif (int(float(message.payload)) > int(float(lightThreshold))):
         instructionsforroom(roomNumber.group(1),'off') 
     if piSN == '000000003d7762f1':
-      if (int(float(message.payload)) < lightThreshold):
+      if (int(float(message.payload)) < int(float(lightThreshold))):
         instructionsforroom(roomNumber.group(1),'on')
-      else:
+      elif (int(float(message.payload)) > int(float(lightThreshold))):
         instructionsforroom(roomNumber.group(1),'off')     
   
 while True:
   try:
-    host = "avvcljufnth68.iot.us-west-2.amazonaws.com"
-    rootCAPath = "zy_rootca.pem"
-    certificatePath = "zy_certificate.pem.crt"
-    privateKeyPath = "zy_private.pem.key"
+    host = "<your_aws_host_address>"
+    rootCAPath = "<your_root_ca_path>"
+    certificatePath = "<your_certificate_path>"
+    privateKeyPath = "<your_private_key_path>"
 
     my_rpi = AWSIoTMQTTClient("subtolight")
     my_rpi.configureEndpoint(host,8883)
